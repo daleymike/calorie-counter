@@ -16,13 +16,16 @@ const userSchema = new Schema({
         minLength : 8
     },
     userRecipes : {
-        default : [Schema.Types.ObjectId]
+        type : [Schema.Types.ObjectId],
+        default : []
     },
     savedRecipes : {
-        default : [Schema.Types.ObjectId]
+        type : [Schema.Types.ObjectId],
+        default : []
     },
     userLogs : {
-        default : [Schema.Types.ObjectId]
+        type : [Schema.Types.ObjectId],
+        default : []
     },
     createdAt : {
         type : Date,

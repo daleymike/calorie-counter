@@ -1,7 +1,9 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 
-exports.registerUser = (req, res) => {
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+exports.registerUser = async (req, res) => {
     console.log('Hitting Registration');
     try{
         const {
@@ -10,13 +12,26 @@ exports.registerUser = (req, res) => {
             password,
             confirm
         } = req.body;
-        const errors = validateUserRegistration(req.body);
+        const errors = await validateUserRegistration(req.body);
         if(errors.isValid){
+            const hashedPassword = await bcrypt.hash(password, 15);
             const user = new User({
                 userName,
                 email,
-                password : await bcrypt.hash(password, 15)
+                password : hashedPassword
             });
+            const savedUser = await user.save();
+            return res.send({
+                success : true,
+                savedUser
+            });
+        }
+        else{
+            console.log('Invalid Registration Credentials');
+            return res.send(JSON.stringify({
+                success : false,
+                errors
+            }));
         }
     }catch(errors){
         console.log(`Errors trying to register user: ${errors}`);
@@ -28,8 +43,22 @@ exports.registerUser = (req, res) => {
     return res.send(JSON.stringify({debug:true}));
 }
 
-exports.loginUser = (req, res) => {
+exports.loginUser = async (req, res) => {
     console.log('Hitting Login');
+    try{
+        const {
+            email,
+            password
+        } = req.body;
+        const user = await User.findOne({email});
+        
+    }catch(errors){
+        console.log(`Errors trying to login user: ${errors}`);
+        return res.send(JSON.stringify({
+            success : false,
+            errors
+        }));
+    }
     return res.send(JSON.stringify({debug:true}));
 }
 
@@ -39,7 +68,11 @@ const validateUserRegistration = async ({userName, email, password, confirm}) =>
     const checkEmail = await User.findOne({email});
     if(email === ''){
         isValid = false;
-        validations.email = {userNameRequired : true}
+        validations.email = {emailRequired : true}
+    }
+    if(!emailRegex.test(email)){
+        isValid = false;
+        validations.email = {...validations.email, emailFormat : true}
     }
     if(checkEmail){
         isValid = false;
