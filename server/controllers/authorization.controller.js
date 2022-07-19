@@ -51,7 +51,22 @@ exports.loginUser = async (req, res) => {
             password
         } = req.body;
         const user = await User.findOne({email});
-        
+        const testPassword = await bcrypt.compare(password, user.password);
+        if(user && testPassword){
+            // SETUP JSON TOKEN HERE
+            // GET NECESSARY STARTING DATA FOR USER HERE TOO.
+            return res.send(JSON.stringify({
+                success : true,
+                userData : {
+                    userName : user.userName
+                }
+            }));
+        }else{
+            console.log('Invalid Login Attempt.');
+            return res.send(JSON.stringify({
+                success : false
+            }));
+        }
     }catch(errors){
         console.log(`Errors trying to login user: ${errors}`);
         return res.send(JSON.stringify({
