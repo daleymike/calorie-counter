@@ -1,10 +1,22 @@
 import './App.css';
-import Test from './components/Test';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import NavBar from './components/NavBar';
+
 
 function App() {
   return (
     <div className="App">
-      <Test />
+      <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<div>Login and Reg</div>} />
+        <Route path="/dashboard" element={<div>Dashboard</div>} />
+        <Route path="/recipes/:user_id" element={<div>Display User Recipes </div>} />
+        <Route path="/logs/:user_id" element={<div>Display User Logs </div>}/>
+        <Route path="/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
+        <Route path="/recipes/create" element={<div>Recipe Form </div>} />
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
