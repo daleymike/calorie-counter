@@ -1,6 +1,7 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import NavBar from './components/NavBar';
+import LoginAndRegisterPage from './components/LoginAndRegisterPage';
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
       <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route exact path="/" element={<div>Login and Reg</div>} />
+        <Route exact path="/" element={<LoginAndRegisterPage />} />
         <Route path="/dashboard" element={<div>Dashboard</div>} />
         <Route path="/recipes/:user_id" element={<div>Display User Recipes </div>} />
         <Route path="/logs/:user_id" element={<div>Display User Logs </div>}/>
