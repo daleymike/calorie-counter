@@ -55,7 +55,7 @@ const RegisterForm = ({className}) => {
             </div>
             <div className='my-3'>
                 <label className='float-start' htmlFor="password">Password:
-                    <span className={validatePassword() ? 'text-success' : 'text-danger'}> Must have valid email address</span>
+                    <span className={validatePassword() ? 'text-success' : 'text-danger'}> Password must have at least 8 characters</span>
                 </label>
                 <input className='form-control'
                 onChange={(e) => handleInput(e)} value={inputs.password}

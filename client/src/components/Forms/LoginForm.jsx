@@ -29,7 +29,7 @@ const LoginForm = ({className}) => {
     
     return (
         <form onSubmit={(e) => handleSubmit(e)} className={className}>
-            <h2>Register</h2>
+            <h2>Login</h2>
             <div className='my-3'>
                 <label className='float-start' htmlFor="email">Email:
                     <span className={validateEmail() ? 'text-success' : 'text-danger'}> Must have valid email address</span>
@@ -40,7 +40,7 @@ const LoginForm = ({className}) => {
             </div>
             <div className='my-3'>
                 <label className='float-start' htmlFor="password">Password:
-                    <span className={validatePassword() ? 'text-success' : 'text-danger'}> Must have valid email address</span>
+                    <span className={validatePassword() ? 'text-success' : 'text-danger'}> Password must have at least 8 characters</span>
                 </label>
                 <input className='form-control'
                 onChange={(e) => handleInput(e)} value={inputs.password}
