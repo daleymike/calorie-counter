@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+Name: Calorie Counter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project Title: calorie-counter
 
-## Available Scripts
+Project Stack: MERN, Context API, Bootstrap(Maybe React Materials package if time permits)
 
-In the project directory, you can run:
+GitHub Repo Link: 
 
-### `npm start`
+Project Description: This application will act as a library of recipes that users can contribute
+to. Part of each recipe, will be the nutritional information(calories), which the user can then use to track
+their own calories for the day. Users will be able to create a log and add in the recipes that
+they ate during that day. Users will also be able to edit their logs and delete logs. Recipes
+will also have full CRUD functionality.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+New Programming Concecpts: 
+    Utilizing Context API for state management throughout the application, using jsonwebtoken
+to authorize users either within session or past session.
+    If time permits, use a materials package designed for react to improve the visuals
+of the application.
+    Utilize .env files to hide sensitive information
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Week 1 Features
+    - Backend will be able to register and login users through Postman
+    - Backend will be able to have full CRUD functionality for recipes
+        - Create Functionality for recipes
+        - Update
+        - delete
 
-### `npm test`
+    - Backend will have full CRUD functionality for logs
+    - Some Front-end components will be made without backend functionality
+        - Form Component for Add / Edit Recipes
+        - Log Form
+Week 2 Features
+    - Users will be able to register and login through application front end
+    - Users will have full CRUD functionality over recipes on the front end
+    - Users will have full CRUD functionality over calorie log on the front end
+BackLog
+    - React Materials to beautify the application
+    - Allowing User to upload images
+    - Users will be able to save (Like) other recipes to reference later
+    
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+User
+    - Name String
+    - email String
+    - password String
+        -minLength : 8
+    - userRecipes [Recipe]
+    - savedRecipes [Recipe]
+    - Logs [Logs]
+    - createdAt Date
+    - updatedAt Date
 
-### `npm run build`
+Recipe
+    - Ingredients [String]
+        - Min 1
+    - Steps [String]
+        - Min 1
+    - Calories Number
+        - Min 0
+    - createdBy Object.Id (Id of the user that made the recipe)
+    - createdAt Date
+    - updatedAt Date
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Log
+    - recipesEaten [Recipe]
+    - logDate Date
+        - No future dates
+    - createdAt Date
+    - updatedAt Date
