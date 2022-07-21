@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 require('./config/mongoose.config');
+require('./routes/recipe.routes')(app);
 require('./routes/test.routes')(app);
 
 

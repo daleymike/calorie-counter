@@ -9,7 +9,7 @@ const RecipeSchema = new mongoose.Schema(
             required: [true, "Ingredients are required"],
             minLength: [3, "Ingredients must be at least 3 characters long"]
         },
-        prepartion :{
+        preparation :{
             type: String,
             required: [true, "Preparation is required"],
             minLength: [1, "Preparation must have at least one step"]
@@ -21,7 +21,7 @@ const RecipeSchema = new mongoose.Schema(
         },
         // Not sure if this is the best way to do this
         user_id :[{
-            type: UserSchema.Types.ObjectId, ref: "User"
+            type: mongoose.Schema.Types.ObjectId, ref: "User"
         }],
 
         createdAt : {
