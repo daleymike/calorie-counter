@@ -38,7 +38,7 @@ const LogForm = () => {
                 </div>
                 <div className='form-group m-auto mt-2 mb-3'>
                     <label htmlFor="logCalories">Total Caloires: <span className={validateLogCalories() ? 'text-success' : 'text-danger'} >Calories are required</span></label>
-                    <input className='form-control' type="text" value={logCalories} onChange={(e) => setLogCalories(e.target.value)}/>
+                    <input className='form-control' type="number" value={logCalories} onChange={(e) => setLogCalories(e.target.value)}/>
                 </div>
                 <div>
                     <button style={{width: 200, marginTop: 30}} className='btn btn-outline-dark form-control' type='submit'>Submit Log</button>
