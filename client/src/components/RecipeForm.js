@@ -36,7 +36,7 @@ const RecipeForm = () => {
                 </div>
                 <div className="form-group m-auto mb-3 banana" style={{width: 800}}>
                     <label htmlFor="calories">Calories: <span className={validateCalories() ? 'text-success' : 'text-danger'} >Calories are Required</span></label>
-                    <input className='form-control' type="text" value={calories} onChange={(e) => setCalories(e.target.value)}/>
+                    <input className='form-control' type="number" value={calories} onChange={(e) => setCalories(e.target.value)}/>
                 </div>
                 <div>
                     <button style={{width: 200, marginTop: 30}} className='btn btn-outline-dark form-control' type='submit'>Submit Recipe</button>
