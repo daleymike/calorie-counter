@@ -1,28 +1,34 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { useSelector } from 'react-redux';
+
 import NavBar from './components/NavBar';
 import LoginAndRegisterPage from './components/LoginAndRegisterPage';
 import RecipeForm from './components/RecipeForm';
 import LogForm from './components/LogForm';
 import Dashboard from './components/Dashboard'
+import PublicRoutes from './Routes/PublicRoutes';
+import PrivateRoutes from './Routes/PrivateRoutes';
+
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
       <NavBar />
-        <Routes>
+      <Routes>
+        <Route exact path='/' element={<PublicRoutes redirectTo="/user/dashboard" />}>
           <Route exact path="/" element={<LoginAndRegisterPage />} />
-          <Route path="/dashboard" element={ <Dashboard />}/>
-          <Route path="/recipes/:user_id" element={<div>Display User Recipes </div>} />
-          <Route path="/logs/:user_id" element={<div>Display User Logs </div>}/>
-          <Route path="/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
-          <Route path="/recipes/create" element={<RecipeForm/>} />
-          <Route path="/logs/create" element={<LogForm/>} />
-
-          {/* Routes I added */}
-          <Route path="/recipe/edit/:recipe._id" element={<div>Display Edit Recipe</div>} />
-        </Routes>
+        </Route>
+        <Route path='/user' element={<PrivateRoutes redirectTo='/' />} >
+          <Route path="/user/dashboard" element={ <Dashboard />}/>
+          <Route path="/user/recipes/:user_id" element={<div>Display User Recipes </div>} />
+          <Route path="/user/logs/:user_id" element={<div>Display User Logs </div>}/>
+          <Route path="/user/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
+          <Route path="/user/recipes/create" element={<RecipeForm/>} />
+          <Route path="/user/logs/create" element={<LogForm/>} />
+        </Route>
+      </Routes>
       </BrowserRouter>
     </div>
   );

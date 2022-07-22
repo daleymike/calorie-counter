@@ -5,6 +5,7 @@ const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 exports.registerUser = async (req, res) => {
     console.log('Hitting Registration');
+    console.log(req.body);
     try{
         const {
             userName,

@@ -1,8 +1,12 @@
 import {
     useState
 } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { loginUser } from '../../state/actions/userActions';
 
 const LoginForm = ({className}) => {
+    const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         email : '',
         password : ''
@@ -19,11 +23,15 @@ const LoginForm = ({className}) => {
         setInputs({...inputs, ...setInput});
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Hitting Submit Login');
         if(validateEmail() && validatePassword()){
             console.log('Can submit Login Request');
+            const tryLogin = await dispatch(loginUser(inputs));
+            if(loginUser.fulfilled.match(tryLogin) && tryLogin.payload.success){
+                alert('Successfullly logged in!');
+            }else{ alert('Invalid Login Dummy!'); }
         }
     }
     
