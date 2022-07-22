@@ -1,8 +1,12 @@
 import {
     useState
 } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { registerUser } from '../../state/actions/userActions';
 
 const RegisterForm = ({className}) => {
+    const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         userName : '',
         email : '',
@@ -25,12 +29,22 @@ const RegisterForm = ({className}) => {
         setInputs({...inputs, ...setInput});
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Hitting Submit Registration');
         if(canSubmit()){
             console.log('Can submit Registration!!');
             // Registration call here
+            const tryRegister = await dispatch(registerUser(inputs));
+            if(registerUser.fulfilled.match(tryRegister) && tryRegister.payload.success){
+                setInputs({
+                    userName : '',
+                    email : '',
+                    password : '',
+                    confirm : ''
+                });
+                alert('You successfully registered!');
+            }else{ alert('Invalid Credentials!'); }
         }
     }
     
