@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import NavBar from './components/NavBar';
 import LoginAndRegisterPage from './components/LoginAndRegisterPage';
 import RecipeForm from './components/RecipeForm';
+import LogForm from './components/LogForm';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/logs/:user_id" element={<div>Display User Logs </div>}/>
         <Route path="/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
         <Route path="/recipes/create" element={<RecipeForm/>} />
+        <Route path="/logs/create" element={<LogForm/>} />
       </Routes>
       </BrowserRouter>
     </div>

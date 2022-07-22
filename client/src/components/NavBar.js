@@ -15,6 +15,7 @@ const NavBar = () => {
               <div className='nav-item' ><Link className='nav-link' to={"/recipes/saved/:user_id"}><p>My Saved Recipes</p></Link></div>
               <div className='nav-item' ><Link className='nav-link' to={"/logs/:user_id"}><p>My Logs</p></Link></div>
               <div className='nav-item' ><Link className='nav-link' to={"/recipes/create"}><p>Add Recipe</p></Link></div>
+              <div className='nav-item' ><Link className='nav-link' to={"/logs/create"}><p>Add Log</p></Link></div>
               <div className='nav-item' ><Link className='nav-link' to={"/logout"}><p>Logout</p></Link></div>
             </div>
                 
