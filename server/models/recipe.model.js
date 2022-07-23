@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 
 const RecipeSchema = new mongoose.Schema(
     {
+        name :{
+            type:String,
+            required: [true, "Name is required"],
+            minLength: [3, "Name must be at least 3 characters long"]
+        },
         ingredients :{
             type: String,
             required: [true, "Ingredients are required"],
@@ -19,7 +24,8 @@ const RecipeSchema = new mongoose.Schema(
             required: [true, "Calories are required"],
             min: [0, "Calories must be have at least 0 calories"],
         },
-        // Not sure if this is the best way to do this
+        // Not sure if this is the best way to do this -DA
+        // I dont know either haha - LL 
         user_id :[{
             type: mongoose.Schema.Types.ObjectId, ref: "User"
         }],

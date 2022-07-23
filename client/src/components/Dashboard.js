@@ -9,30 +9,28 @@ const Dashboard = () =>{
     
     // Get request to populate recipes state
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/api/recipes')
-    //         .then((res) => {
-    //             console.group(res.data);
-    //             setRecipes(res.data);
-    //             console.log("recipes set to state!")
-    //         })
-    //         .catch((err) =>{
-    //             console.log(err.res);
-    //         });
-    // },[]);
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/recipes')
+            .then((res) => {
+                console.group(res.data.recipes);
+                setRecipes(res.data.recipes);
+                console.log("recipes set to state!")
+            })
+            .catch((err) =>{
+                console.log(err.res);
+            });
+    },[]);
 
     // filter state setting - set to all recipes on default
     const [ filter, setFilter] = useState('all_recipes');
     
 
-
-    // State value is lagging by one event, shows previous state...
     // Change filter setting in state
     const handleChange = e =>{
         console.log(e.target.value+" target value");
         setFilter(e.target.value);
         console.log(filter+" state value")
-    }    
+    }
 
 
 
@@ -40,7 +38,7 @@ const Dashboard = () =>{
         <div className='container'>
 
             {/* Need to get CSS for padding on label and margin between buttons */}
-            <div className="d-flex flex-row justify-content-sm-start" >
+            <div className="d-flex flex-row justify-content-sm-start mt-3 mb-3" >
                 <div className="radio">
                     <input 
                         type="radio" 
@@ -68,7 +66,7 @@ const Dashboard = () =>{
             </div>
             <div>
                 <table className="table border">
-                    <thead>
+                    <thead className="table-dark">
                         <tr>
                             <th>Recipe Name</th>
                             <th>Ingredients</th>
@@ -89,20 +87,18 @@ const Dashboard = () =>{
                                     <td className="d-flex justify-content-evenly">
 
                                         {/* need to update to route to edit recipe by id - put in  placeholder for now */}
-                                        <Link to={'/recipe/edit/:recipe_id'}>
+                                        <Link to={`/recipe/edit/${recipe._id}`}>
                                             <button>Edit</button>
                                         </Link>
 
                                         {/* need to update to route to delete recipe by id - put in  placeholder for now */}
-                                        <Link to={'/recipe/destroy/:recipe_id'}>
+                                        <Link to={`/recipe/destroy/${recipe._id}`}>
                                             <button>Delete</button>
                                         </Link>
                                     </td>
                                 </tr>
-                            )
-                        }
-                        
-                        )}
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
