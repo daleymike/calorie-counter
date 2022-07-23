@@ -4,7 +4,7 @@ import NavBar from './components/NavBar';
 import LoginAndRegisterPage from './components/LoginAndRegisterPage';
 import RecipeForm from './components/RecipeForm';
 import LogForm from './components/LogForm';
-
+import Dashboard from './components/Dashboard'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route exact path="/" element={<LoginAndRegisterPage />} />
-        <Route path="/dashboard" element={<div>Dashboard</div>} />
+        <Route path="/dashboard" element={ <Dashboard />}/>
         <Route path="/recipes/:user_id" element={<div>Display User Recipes </div>} />
         <Route path="/logs/:user_id" element={<div>Display User Logs </div>}/>
         <Route path="/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
