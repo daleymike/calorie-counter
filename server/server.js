@@ -11,6 +11,7 @@ const authRoutes = require('./routes/authorization.routes');
 require('./config/mongoose.config');
 require('./routes/recipe.route')(app);
 require('./routes/test.routes')(app);
+require('./routes/user.routes')(app);
 app.use(authRoutes);
 
 

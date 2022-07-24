@@ -9,6 +9,7 @@ import LogForm from './components/LogForm';
 import Dashboard from './components/Dashboard'
 import PublicRoutes from './Routes/PublicRoutes';
 import PrivateRoutes from './Routes/PrivateRoutes';
+import MyLogs from './components/MyLogs';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         <Route path='/user' element={<PrivateRoutes redirectTo='/' />} >
           <Route path="/user/dashboard" element={ <Dashboard />}/>
           <Route path="/user/recipes/:user_id" element={<div>Display User Recipes </div>} />
-          <Route path="/user/logs/:user_id" element={<div>Display User Logs </div>}/>
+          <Route path="/user/logs" element={<MyLogs/>}/>
           <Route path="/user/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
           <Route path="/user/recipes/create" element={<RecipeForm/>} />
           <Route path="/user/logs/create" element={<LogForm/>} />
