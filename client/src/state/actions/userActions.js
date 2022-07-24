@@ -53,12 +53,3 @@ export const loginUser = createAsyncThunk('loginUser', async (userData) => {
         return {success : false};
     }
 });
-
-export const verifyToken = createAsyncThunk('verifyToken', async () => {
-    try{
-
-    }catch(e){
-        console.log(`Error with action: ${e}`);
-        return {success : false};
-    }
-});

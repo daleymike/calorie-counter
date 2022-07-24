@@ -1,10 +1,11 @@
 import React from 'react';
 import {useNavigate, Link} from 'react-router-dom'
-
 import {
     useSelector,
     useDispatch
 } from 'react-redux';
+
+import { logout } from '../state/reducers/userReducer';
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const NavBar = () => {
                         <div className='nav-item' ><Link className='nav-link' to={"/user/logs/:user_id"}><p>My Logs</p></Link></div>
                         <div className='nav-item' ><Link className='nav-link' to={"/user/recipes/create"}><p>Add Recipe</p></Link></div>
                         <div className='nav-item' ><Link className='nav-link' to={"/logs/create"}><p>Add Log</p></Link></div>
-                        <div className='nav-item' ><button className='btn nav-link'>Logout</button></div>
+                        <div className='nav-item' ><button onClick={() => dispatch(logout())} className='btn nav-link'>Logout</button></div>
                       </div>:''}
                 
 
