@@ -1,51 +1,60 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const Dashboard = () =>{
 
-    // set state for the id of the user logged in - needs futher input from REDUX to complete
+    // Set userID from redux
     const { userId } = useSelector(state => state.user);
 
-    // recipes state
+
+    // set favorite recipes  needs get user call
+    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+
+    // all recipes state
     const [recipes, setRecipes] = useState([]);
     
+    // Filtered recipes state for rendering table
     const [filteredRecipes, setFilteredRecipes] = useState([])
+    
+    // filter state setting - set to all recipes on default
+    const [ filter, setFilter] = useState('all_recipes');
+    
     // Get request to populate recipes state
-
     useEffect(() => {
         axios.get('http://localhost:8000/api/recipes')
             .then((res) => {
                 console.group(res.data.recipes);
                 setRecipes(res.data.recipes);
-                console.log("recipes set to state!")
+                setFilteredRecipes(res.data.recipes)
             })
             .catch((err) =>{
                 console.log(err.res);
             });
     },[]);
 
-    // filter state setting - set to all recipes on default
-    const [ filter, setFilter] = useState('all_recipes');
-    
 
     // updates filtered recipes state
+    const userRecipes = recipes.filter((recipe)=>{
+        return recipe.user_id === userId});
+
+
+    // radio button event handler - changes filteredRecipes according to filter radio setting
     const handleChange = e =>{
-        console.log(e.target.value+" target value");
+        console.log("User ID from session"+userId);
+        console.log("target value " +e.target.value);
         
         setFilter(e.target.value);
 
-        if (e.target.value === "user_recipes"){
-            setFilteredRecipes(recipes.filter((recipes)=>{
-                return recipes.user_id == sessionUserID}));
-        } else if (e.target.value === "user_faves"){
-            setFilteredRecipes(recipes.filter((recipes) => {
-                return recipes._id === favoriteRecipes
-            }));
+        if (e.target.value === "all_recipes"){
+            return setFilteredRecipes(recipes);
+
+        } else if (e.target.value === "user_recipes"){
+            return setFilteredRecipes(userRecipes);
         } 
-            setFilteredRecipes = recipes
-        }
+            setFilteredRecipes(favoriteRecipes);
+        };
 
 
     // Delete query and recipe state update to remove deleted item
@@ -59,6 +68,7 @@ const Dashboard = () =>{
                 return recipes._id !==idFromBelow});
             console.log("DELETE DONE")
             setRecipes(updatedRecipes);
+            setFilteredRecipes(updatedRecipes);
             console.log(updatedRecipes);
 
         })
@@ -109,10 +119,9 @@ const Dashboard = () =>{
                         </tr>
                     </thead>
                     <tbody>
-                        {/* need to write if loop to run different queries based on filer state */}
 
-                        {/* below is if loop for show all recipes -- still need to put conditional if loop for the link buttons */}
-                        {recipes.map((recipe,index) =>{
+                        {/* map function to populate recipes from filter results array */}
+                        {filteredRecipes.map((recipe,index) =>{
                             return (
                                 <tr key={recipe._id}>
                                     <td>
@@ -121,7 +130,7 @@ const Dashboard = () =>{
                                     </td>
                                     <td>{recipe.ingredients}</td>
                                     <td>{recipe.calories}</td>
-                                    {userId === recipe.user_id ?
+                                    {userId === recipe.user_id &&
                                         <td className="d-flex justify-content-evenly">
                                             <button onClick={()=> deleteFilter(recipe._id)}>Delete</button>
                                             <Link to={`/user/recipes/edit/${recipe._id}`}>
