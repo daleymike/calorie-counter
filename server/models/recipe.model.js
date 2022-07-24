@@ -27,9 +27,14 @@ const RecipeSchema = new mongoose.Schema(
         },
         // REDUX user ID login needs to be finished first for below to be edited
 
+        // user_id :{
+        //     type: mongoose.Schema.Types.ObjectId, ref: "User"
+        // },
+
         user_id :{
-            type: mongoose.Schema.Types.ObjectId, ref: "User"
+            type:String,
         },
+
 
         createdAt : {
             type : Date,
