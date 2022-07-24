@@ -8,6 +8,7 @@ app.use(express.urlencoded({extended: true}));
 
 const authRoutes = require('./routes/authorization.routes');
 require('./config/mongoose.config');
+require('./routes/recipe.route')(app);
 require('./routes/test.routes')(app);
 app.use(authRoutes);
 

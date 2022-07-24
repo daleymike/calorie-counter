@@ -7,7 +7,7 @@ const NavBar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3 pt-4 d-flex justify-content-between align-items-baseline">
             
             <div className='navbar-nav'>
-                <p className='navbar-brand mb-0 h1'>Calorie Coutner</p>
+                <p className='navbar-brand mb-0 h1'>Calorie Counter</p>
             </div>
             <div className='navbar-nav'>
               <div className='nav-item' ><Link className='nav-link' to={"/dashboard"}><p>Home</p></Link></div>
