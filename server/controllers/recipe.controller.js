@@ -39,12 +39,12 @@ module.exports.getRecipeById = (req, res) => {
         })
 }
 
-// update a recipe
+// update a recipe **updated controller to run validators
 module.exports.updateRecipe = (req, res) => {
     Recipe.findOneAndUpdate(
         {_id: req.params.id},
         req.body,
-        {new: true}
+        {new: true, runValidators:true}
     )
         .then(recipe => {
             res.json({recipe: recipe});

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const RecipeSchema = new mongoose.Schema(
     {
+        // I added Name as it was missing
         name :{
             type:String,
             required: [true, "Name is required"],
@@ -24,11 +25,11 @@ const RecipeSchema = new mongoose.Schema(
             required: [true, "Calories are required"],
             min: [0, "Calories must be have at least 0 calories"],
         },
-        // Not sure if this is the best way to do this -DA
-        // I dont know either haha - LL 
-        user_id :[{
+        // REDUX user ID login needs to be finished first for below to be edited
+
+        user_id :{
             type: mongoose.Schema.Types.ObjectId, ref: "User"
-        }],
+        },
 
         createdAt : {
             type : Date,

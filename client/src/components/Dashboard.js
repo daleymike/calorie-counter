@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 const Dashboard = () =>{
+
+    // set state for the id of the user logged in - needs futher input from REDUX to complete
+    const [sessionUserID, setSessionUserID] = useState('');
 
     // recipes state
     const [recipes, setRecipes] = useState([]);
@@ -29,9 +32,26 @@ const Dashboard = () =>{
     const handleChange = e =>{
         console.log(e.target.value+" target value");
         setFilter(e.target.value);
-        console.log(filter+" state value")
     }
 
+    // Delete query and recipe state update to remove deleted item
+
+    const deleteFilter = (idFromBelow) => {
+        
+        axios.delete(`http://localhost:8000/api/recipes/${idFromBelow}`)
+        .then((res)=> {
+            console.log(res.data);
+            const updatedRecipes = recipes.filter((recipes)=> {
+                return recipes._id !==idFromBelow});
+            console.log("DELETE DONE")
+            setRecipes(updatedRecipes);
+            console.log(updatedRecipes);
+
+        })
+        .catch((err)=> {
+            console.log(err);
+        })
+    }
 
 
     return (
@@ -75,27 +95,26 @@ const Dashboard = () =>{
                         </tr>
                     </thead>
                     <tbody>
+                        {/* need to write if loop to run different queries based on filer state */}
+
+                        {/* below is if loop for show all recipes -- still need to put conditional if loop for the link buttons */}
                         {recipes.map((recipe,index) =>{
                             return (
                                 <tr>
                                     <td>
                                         {/* need to update to route for diplay recipe by id - put in a placeholder for now*/}
-                                        <Link to={'/recipes/display/:recipe_id'}>{recipe.name}</Link>
+                                        <Link to={`/recipes/display/${recipe._id}`}>{recipe.name}</Link>
                                     </td>
                                     <td>{recipe.ingredients}</td>
                                     <td>{recipe.calories}</td>
-                                    <td className="d-flex justify-content-evenly">
-
-                                        {/* need to update to route to edit recipe by id - put in  placeholder for now */}
-                                        <Link to={`/recipe/edit/${recipe._id}`}>
-                                            <button>Edit</button>
-                                        </Link>
-
-                                        {/* need to update to route to delete recipe by id - put in  placeholder for now */}
-                                        <Link to={`/recipe/destroy/${recipe._id}`}>
-                                            <button>Delete</button>
-                                        </Link>
-                                    </td>
+                                    {sessionUserID === recipe.user_id &&
+                                        <td className="d-flex justify-content-evenly">
+                                            <button onClick={()=> deleteFilter(recipe._id)}>Delete</button>
+                                            <Link to={`/recipes/edit/${recipe._id}`}>
+                                                <button>Edit</button>
+                                            </Link>
+                                        </td>
+                                    }
                                 </tr>
                             );
                         })}
