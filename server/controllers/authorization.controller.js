@@ -1,5 +1,7 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -56,11 +58,16 @@ exports.loginUser = async (req, res) => {
         if(user && testPassword){
             // SETUP JSON TOKEN HERE
             // GET NECESSARY STARTING DATA FOR USER HERE TOO.
+            const token = jwt.sign({
+                _id : user._id
+            }, `${process.env.JWT_SECRET}`,
+            {
+                expiresIn : '2 days'
+            });
             return res.send(JSON.stringify({
                 success : true,
-                userData : {
-                    userName : user.userName
-                }
+                userId : user._id,
+                token
             }));
         }else{
             console.log('Invalid Login Attempt.');
@@ -76,6 +83,32 @@ exports.loginUser = async (req, res) => {
         }));
     }
     return res.send(JSON.stringify({debug:true}));
+}
+
+exports.verifyToken = async (req, res) => {
+    try{
+        console.log('Hitting Verify');
+        const token = req.headers.authorization.split(' ')[1];
+        const {_id} = jwt.verify(token, `${process.env.JWT_SECRET}`);
+        const user = await User.findOne({_id});
+        if(user){
+            console.log('Token Verified!');
+            const newToken = jwt.sign({_id : user._id}, `${process.env.JWT_SECRET}`,{
+                expiresIn : '2 days'
+            });
+            return res.send({
+                success : true,
+                userId : user._id,
+                token : newToken
+            });
+        }
+        else{ return res.send(JSON.stringify({success : false}))}
+    }catch(errors){
+        console.log(`Error Verifying token ${errors}`);
+        return res.send(JSON.stringify({
+            success : false
+        }));
+    }
 }
 
 const validateUserRegistration = async ({userName, email, password, confirm}) => {
