@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server.js --prefix server",
     "client": "npm start --prefix client",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "prep" : "concurrently \"npm i --prefix server\" \"npm i --prefix client\" \"npm i\""
   },
   "repository": {
     "type": "git",
