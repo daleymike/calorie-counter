@@ -5,11 +5,13 @@ import axios from 'axios';
 const Dashboard = () =>{
 
     // set state for the id of the user logged in - needs futher input from REDUX to complete
-    const [sessionUserID, setSessionUserID] = useState('');
+    const [sessionUserID, setSessionUserID] = useState('Loic');
+    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
     // recipes state
     const [recipes, setRecipes] = useState([]);
     
+    const [filteredRecipes, setFilteredRecipes] = useState([])
     // Get request to populate recipes state
 
     useEffect(() => {
@@ -28,11 +30,23 @@ const Dashboard = () =>{
     const [ filter, setFilter] = useState('all_recipes');
     
 
-    // Change filter setting in state
+    // updates filtered recipes state
     const handleChange = e =>{
         console.log(e.target.value+" target value");
+        
         setFilter(e.target.value);
-    }
+
+        if (e.target.value === "user_recipes"){
+            setFilteredRecipes(recipes.filter((recipes)=>{
+                return recipes.user_id == sessionUserID}));
+        } else if (e.target.value === "user_faves"){
+            setFilteredRecipes(recipes.filter((recipes) => {
+                return recipes._id === favoriteRecipes
+            }));
+        } 
+            setFilteredRecipes = recipes
+        }
+
 
     // Delete query and recipe state update to remove deleted item
 
