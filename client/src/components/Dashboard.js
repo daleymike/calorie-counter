@@ -5,9 +5,8 @@ import {useSelector} from 'react-redux';
 
 const Dashboard = () =>{
 
-    // set state for the id of the user logged in - needs futher input from REDUX to complete
-    const [sessionUserID, setSessionUserID] = useState('Loic');
-    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+    // Set userID from redux
+    const { userId } = useSelector(state => state.user);
 
 
     // set favorite recipes  needs get user call
@@ -16,7 +15,12 @@ const Dashboard = () =>{
     // all recipes state
     const [recipes, setRecipes] = useState([]);
     
+    // Filtered recipes state for rendering table
     const [filteredRecipes, setFilteredRecipes] = useState([])
+    
+    // filter state setting - set to all recipes on default
+    const [ filter, setFilter] = useState('all_recipes');
+    
     // Get request to populate recipes state
     useEffect(() => {
         axios.get('http://localhost:8000/api/recipes')
@@ -32,21 +36,25 @@ const Dashboard = () =>{
 
 
     // updates filtered recipes state
+    const userRecipes = recipes.filter((recipe)=>{
+        return recipe.user_id === userId});
+
+
+    // radio button event handler - changes filteredRecipes according to filter radio setting
     const handleChange = e =>{
-        console.log(e.target.value+" target value");
+        console.log("User ID from session"+userId);
+        console.log("target value " +e.target.value);
         
         setFilter(e.target.value);
 
-        if (e.target.value === "user_recipes"){
-            setFilteredRecipes(recipes.filter((recipes)=>{
-                return recipes.user_id == sessionUserID}));
-        } else if (e.target.value === "user_faves"){
-            setFilteredRecipes(recipes.filter((recipes) => {
-                return recipes._id === favoriteRecipes
-            }));
+        if (e.target.value === "all_recipes"){
+            return setFilteredRecipes(recipes);
+
+        } else if (e.target.value === "user_recipes"){
+            return setFilteredRecipes(userRecipes);
         } 
-            setFilteredRecipes = recipes
-        }
+            setFilteredRecipes(favoriteRecipes);
+        };
 
 
     // Delete query and recipe state update to remove deleted item
