@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () =>{
 
     // set state for the id of the user logged in - needs futher input from REDUX to complete
-    const [sessionUserID, setSessionUserID] = useState('');
+    const { userId } = useSelector(state => state.user);
 
     // recipes state
     const [recipes, setRecipes] = useState([]);
@@ -100,20 +101,20 @@ const Dashboard = () =>{
                         {/* below is if loop for show all recipes -- still need to put conditional if loop for the link buttons */}
                         {recipes.map((recipe,index) =>{
                             return (
-                                <tr>
+                                <tr key={recipe._id}>
                                     <td>
                                         {/* need to update to route for diplay recipe by id - put in a placeholder for now*/}
                                         <Link to={`/recipes/display/${recipe._id}`}>{recipe.name}</Link>
                                     </td>
                                     <td>{recipe.ingredients}</td>
                                     <td>{recipe.calories}</td>
-                                    {sessionUserID === recipe.user_id &&
+                                    {userId === recipe.user_id ?
                                         <td className="d-flex justify-content-evenly">
                                             <button onClick={()=> deleteFilter(recipe._id)}>Delete</button>
-                                            <Link to={`/recipes/edit/${recipe._id}`}>
+                                            <Link to={`/user/recipes/edit/${recipe._id}`}>
                                                 <button>Edit</button>
                                             </Link>
-                                        </td>
+                                        </td> : ''
                                     }
                                 </tr>
                             );

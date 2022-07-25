@@ -29,6 +29,7 @@ module.exports.getAllRecipes = (req, res) => {
 
 // get a recipe by id
 module.exports.getRecipeById = (req, res) => {
+    console.log('Hitting Get recipe by Id');
     Recipe.findOne({_id: req.params.id})
         .then(recipe =>  {
             res.json({recipe: recipe});
