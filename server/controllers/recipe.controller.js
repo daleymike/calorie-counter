@@ -1,10 +1,15 @@
 const Recipe = require('../models/recipe.model');
-
+const User = require('../models/user.model');
 
 // create a new recipe
-module.exports.createRecipe = (req, res) => {
+module.exports.createRecipe = async (req, res) => {
     Recipe.create(req.body)
         .then(recipe => {
+            User.findOne({_id : recipe.user_id})
+                .then(user => {
+                    user.userRecipes.push(recipe._id);
+                    return user;
+                }).then(user => user.save());
             res.json({recipe: recipe});
         })
         .catch((err) => {

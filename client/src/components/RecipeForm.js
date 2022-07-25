@@ -62,7 +62,9 @@ const RecipeForm = () => {
                 method : editMode ? 'PUT' : 'POST',
                 body : JSON.stringify(submitData)
             }).then(res => res.json());
-            console.log(result);
+            if(result.recipe){
+                nav('/user/dashboard');
+            }
         }
     }
 
