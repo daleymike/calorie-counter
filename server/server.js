@@ -12,6 +12,7 @@ require('./config/mongoose.config');
 require('./routes/recipe.route')(app);
 require('./routes/test.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/log.route')(app);
 app.use(authRoutes);
 
 
