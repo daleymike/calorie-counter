@@ -24,6 +24,7 @@ function App() {
         <Route path='/user' element={<PrivateRoutes redirectTo='/' />} >
           <Route path="/user/dashboard" element={ <Dashboard />}/>
           <Route path="/user/recipes/:user_id" element={<div>Display User Recipes </div>} />
+          <Route path="/user/recipes/edit/:recipeId" element={<RecipeForm />} />
           <Route path="/user/logs" element={<MyLogs/>}/>
           <Route path="/user/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
           <Route path="/user/recipes/create" element={<RecipeForm/>} />
