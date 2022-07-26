@@ -136,7 +136,7 @@ const Dashboard = () =>{
                                             <Link to={`/user/recipes/edit/${recipe._id}`}>
                                                 <button>Edit</button>
                                             </Link>
-                                        </td> : ''
+                                        </td>
                                     }
                                 </tr>
                             );
