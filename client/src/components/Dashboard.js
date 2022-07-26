@@ -104,7 +104,7 @@ const Dashboard = () =>{
                                 <tr key={recipe._id}>
                                     <td>
                                         {/* need to update to route for diplay recipe by id - put in a placeholder for now*/}
-                                        <Link to={`/recipes/display/${recipe._id}`}>{recipe.name}</Link>
+                                        <Link to={`/user/recipes/detail/${recipe._id}`}>{recipe.name}</Link>
                                     </td>
                                     <td>{recipe.ingredients}</td>
                                     <td>{recipe.calories}</td>

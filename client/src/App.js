@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { useSelector } from 'react-redux';
-
+import Detail from './components/Detail';
 import NavBar from './components/NavBar';
 import LoginAndRegisterPage from './components/LoginAndRegisterPage';
 import RecipeForm from './components/RecipeForm';
@@ -29,6 +29,7 @@ function App() {
           <Route path="/user/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
           <Route path="/user/recipes/create" element={<RecipeForm/>} />
           <Route path="/user/logs/create" element={<LogForm/>} />
+          <Route path="/user/recipes/detail/:recipeId" element={<Detail/>} />
         </Route>
       </Routes>
       </BrowserRouter>
