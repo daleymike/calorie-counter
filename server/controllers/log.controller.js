@@ -1,9 +1,15 @@
 const Log = require('../models/Log.model');
+const User = require('../models/user.model');
 
 // create a new log
 module.exports.createLog = (req, res) => {
     Log.create(req.body)
         .then(Log => {
+            User.findOne({_id: Log.user_id})
+            .then(user => {
+                user.userLogs.push(Log._id);
+                return user;
+            }) .then(user => user.save());
             res.json({Log: Log});
         })
         .catch((err) => {

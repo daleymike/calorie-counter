@@ -12,6 +12,7 @@ const MyLogs = () => {
         axios.get("http://localhost:8000/api/user/" + userId)
         .then((res) => {
             console.log("Success")
+            console.log(res.data.userLogs)
             setUser(res.data);
             setUserLogs(res.data.userLogs);
         })

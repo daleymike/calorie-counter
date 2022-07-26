@@ -17,6 +17,9 @@ const LogSchema = new mongoose.Schema(
             required : true,
             default : new Date()
         },
+        user_id :{
+            type: mongoose.Schema.Types.ObjectId, ref: "User"
+        },
         createdAt : {
             type : Date,
             required : true,
