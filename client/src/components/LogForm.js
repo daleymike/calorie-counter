@@ -12,39 +12,58 @@ const LogForm = () => {
     
 
     const validateLogDate = () => logDate <= today.toISOString().split('T')[0] && logDate !== "";
-    const validateLogRecipes = () => logRecipes.length >= 1;
+    const validateLogRecipeNames = () => logRecipeNames.length >= 1;
     const validateLogCalories = () => logCalories > 0;
 
-    const canSubmit = () => validateLogDate() && validateLogRecipes() && validateLogCalories();
+    const canSubmit = () => validateLogDate() && validateLogRecipeNames() && validateLogCalories();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Hitting log submit");
-
-        if (canSubmit()){
-            console.log("Log Submitted")
-            // Add log to User Logs
-        }
-    }
 
     const handleClick = (e, recipe) => {
         e.preventDefault()
+        setLogRecipes([...logRecipes, recipe._id]);
         setLogRecipeNames([...logRecipeNames, recipe.name]);
         const totalCals = (logCalories + recipe.calories)
         setLogCalories(totalCals);
         // store recipe names and recipe ids seperate in state, push the ids through on submit
     }
 
+    const handleClearRecipes = () => {
+        setLogRecipeNames([]);
+        setLogRecipes([]);
+        setLogCalories(0);
+    }
+
     useEffect(() => {
         axios.get("http://localhost:8000/api/recipes")
         .then((res) => {
-            console.log(res.data.recipes)
             setAllRecipes(res.data.recipes)
         })
         .catch((err) => {
             console.log(err)
         })
     },[])
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("hitting log submit");
+
+        // if (canSubmit()){
+        //     console.log("log able to be submitted")
+        // axios.post("http://localhost:8000/api/logs", {
+        //     logDate: logDate,
+        //     recipesEaten: logRecipes,
+        //     caloriesEaten: logCalories
+        // }, {withCredentials: true}
+        // )
+        // .then((res) => {
+        //     setLogDate("");
+        //     setLogRecipes([]);
+        //     setLogRecipeNames([]);
+        //     setLogCalories(0);
+        // })
+        // .catch((err) => {console.log(err)})
+        // }
+    }
 
     return (
         <div className='container d-flex'>
@@ -66,8 +85,9 @@ const LogForm = () => {
                     <input className='form-control' type="date" value={logDate} onChange={(e) => setLogDate(e.target.value)}/>
                 </div>
                 <div className='form-group m-auto mt-2 mb-3'>
-                    <label htmlFor="logRecipes">Recipes: <span className={validateLogRecipes() ? 'text-success' : 'text-danger'} >Recipes are Required</span></label>
-                    <input className='form-control' type="text" value={logRecipeNames} onChange={(e) => setLogRecipes(e.target.value)}/>
+                    <label htmlFor="logRecipes">Recipes: <span className={validateLogRecipeNames() ? 'text-success' : 'text-danger'} >Recipes are Required</span> </label>
+                    <input className='form-control' type="text" value={logRecipeNames} onChange={(e) => setLogRecipes(e.target.value)} placeholder="Please Select Recipes from List"/>
+                    <small className='clear-recipes form-text text-primary' onClick={() => {handleClearRecipes()}}>[Clear Recipes]</small>
                 </div>
                 <div className='form-group m-auto mt-2 mb-3'>
                     <label htmlFor="logCalories">Total Caloires: <span className={validateLogCalories() ? 'text-success' : 'text-danger'} >Calories are required</span></label>
