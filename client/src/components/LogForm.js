@@ -47,22 +47,23 @@ const LogForm = () => {
         e.preventDefault();
         console.log("hitting log submit");
 
-        // if (canSubmit()){
-        //     console.log("log able to be submitted")
-        // axios.post("http://localhost:8000/api/logs", {
-        //     logDate: logDate,
-        //     recipesEaten: logRecipes,
-        //     caloriesEaten: logCalories
-        // }, {withCredentials: true}
-        // )
-        // .then((res) => {
-        //     setLogDate("");
-        //     setLogRecipes([]);
-        //     setLogRecipeNames([]);
-        //     setLogCalories(0);
-        // })
-        // .catch((err) => {console.log(err)})
-        // }
+        if (canSubmit()){
+            console.log("log able to be submitted")
+        axios.post("http://localhost:8000/api/logs", {
+            logDate: logDate,
+            recipesEaten: logRecipes,
+            caloriesEaten: logCalories
+        }, {withCredentials: true}
+        )
+        .then((res) => {
+            console.log("SUCCESS")
+            setLogDate("");
+            setLogRecipes([]);
+            setLogRecipeNames([]);
+            setLogCalories(0);
+        })
+        .catch((err) => {console.log(err)})
+        }
     }
 
     return (
