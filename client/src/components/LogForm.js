@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const LogForm = () => {
     const [logDate, setLogDate] = useState("");
@@ -8,6 +9,7 @@ const LogForm = () => {
     const [logCalories, setLogCalories] = useState(0);
     const today = new Date();
     const [allRecipes, setAllRecipes] = useState([]);
+    const { userId } = useSelector(state => state.user);
     
     
 
@@ -52,8 +54,9 @@ const LogForm = () => {
         axios.post("http://localhost:8000/api/logs", {
             logDate: logDate,
             recipesEaten: logRecipes,
-            caloriesEaten: logCalories
-        }, {withCredentials: true}
+            caloriesEaten: logCalories,
+            user_id: userId
+        }
         )
         .then((res) => {
             console.log("SUCCESS")
