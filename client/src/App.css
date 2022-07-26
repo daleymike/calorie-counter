@@ -15,3 +15,11 @@
   font-weight: bold;
 }
 
+.list-group-item:hover {
+  cursor: pointer;
+}
+
+.clear-recipes:hover{
+  cursor: pointer;
+}
+
