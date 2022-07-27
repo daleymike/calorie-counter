@@ -55,7 +55,7 @@ const MyLogs = () => {
       <h3 className="text-start">{user.userName}'s Logs:</h3>
       <br />
       <table className="table table-hover">
-        <thead className="thead">
+        <thead className="table-dark">
           <tr>
             <th scope="column">Date</th>
             <th scope="column">Recipes</th>
