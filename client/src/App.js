@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard'
 import PublicRoutes from './Routes/PublicRoutes';
 import PrivateRoutes from './Routes/PrivateRoutes';
 import MyLogs from './components/MyLogs';
+import LogDetails from './components/LogDetails';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/user/recipes/:user_id" element={<div>Display User Recipes </div>} />
           <Route path="/user/recipes/edit/:recipeId" element={<RecipeForm />} />
           <Route path="/user/logs" element={<MyLogs/>}/>
+          <Route path="/user/logs/:logId" element={<LogDetails />}/>
           <Route path="/user/recipes/saved/:user_id" element={<div>Display User Saved Recipes </div>} />
           <Route path="/user/recipes/create" element={<RecipeForm/>} />
           <Route path="/user/logs/create" element={<LogForm/>} />
