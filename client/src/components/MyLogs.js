@@ -43,7 +43,6 @@ const MyLogs = () => {
             setRec[rec._id] = rec.name;
         })
         setDisplayRecipes(setRec);
-        console.log(setRec)
       })
   }, []);
 
