@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const MyLogs = () => {
   const { userId } = useSelector((state) => state.user);
   const [userLogs, setUserLogs] = useState([]);
   const [user, setUser] = useState("");
+  const [displayRecipes, setDisplayRecipes] = useState([]);
   const navigate = useNavigate();
 
   // set active user
@@ -33,6 +34,17 @@ const MyLogs = () => {
       .catch((err) => {
         console.log(err);
       });
+      axios
+      .get("http://localhost:8000/api/recipes")
+      .then((res) => {
+        const getRecipes = res.data.recipes;
+        const setRec = {};
+        getRecipes.forEach((rec) => {
+            setRec[rec._id] = rec.name;
+        })
+        setDisplayRecipes(setRec);
+        console.log(setRec)
+      })
   }, []);
 
   // delete log
@@ -69,7 +81,7 @@ const MyLogs = () => {
               <tr key={index}>
                 <td>{new Date(log.logDate).toLocaleDateString()}</td>
                 <td>
-                  {log.recipesEaten.join(', ')}
+                  {log.recipesEaten.map(key => <Link to={`/api/recipes/${key}`}>{displayRecipes[key]}  |  </Link>)}
                 </td>
                 <td>{log.caloriesEaten}</td>
                 <td>
