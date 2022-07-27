@@ -1,23 +1,44 @@
 import React, { useEffect, useState} from 'react';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {useParams, Link} from "react-router-dom";
 
 const Detail = (props) => {
     const [recipe, setRecipe] = useState({});
-    const {id} = useParams();
-
+    const {userId} = useSelector(state => state.user);
+    const {recipeId} = useParams();
+    const navigate = useNavigate();
 
 
     useEffect(()=>{
-    	axios.get("http://localhost:8000/api/recipes/" +id)
+    	axios.get("http://localhost:8000/api/recipes/" +recipeId)
     	.then((res)=>{
-	    console.log(res.data);
-            setRecipe(res.data);
+	    console.log(res.data.recipe);
+            setRecipe(res.data.recipe);
 	})
     	.catch((err)=>{
             console.log(err);
     	})
     }, [])
+
+
+
+    const deleteRecipe = (idFromBelow) => {
+        
+        axios.delete(`http://localhost:8000/api/recipes/${recipeId}`)
+        .then((res)=> {
+            console.log(res.data);
+            console.log("deleted")
+            navigate("/user/dashboard")
+        })
+        .catch((err)=> {
+            console.log(err);
+        })
+    }
+
+
+
 
 
 
@@ -36,7 +57,7 @@ const Detail = (props) => {
                         </div>
                                 <br/>              
                         <div className="form-group m-auto mb-3" style={{width: 800}}>
-                            <p>Steps: {recipe.steps}</p>
+                            <p>Steps: {recipeId.steps}</p>
                         </div>
                                 <br/>
                         <div className="form-group m-auto mb-3 banana" style={{width: 800}}>
@@ -44,12 +65,12 @@ const Detail = (props) => {
                         </div>
                                 <br/>
 
-
+                                {userId === recipe.user_id ?
                             <div>                    
-                                <button style={{width: 200, marginTop: 30}} className='btn btn-white' type='submit'><Link to= {`/user/recipes/edit/:recipeId`}>Update</Link></button>
-                                <button style={{width: 200, marginTop: 30}} className='btn btn-danger ' type='submit'>Delete</button>
-                            </div>
-                
+                                <button style={{width: 200, marginTop: 30}} className='btn btn-white' type='submit'><Link to= {`/user/recipes/edit/${recipe._id}`}>Edit</Link></button>
+                                <button style={{width: 200, marginTop: 30}} className='btn btn-danger' type='submit' onClick={()=> deleteRecipe(recipe._id)}>Delete</button>
+                            </div> :''
+                                }
 
                     </div>
                 
