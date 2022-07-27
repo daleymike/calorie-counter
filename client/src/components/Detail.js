@@ -57,7 +57,7 @@ const Detail = (props) => {
                         </div>
                                 <br/>              
                         <div className="form-group m-auto mb-3" style={{width: 800}}>
-                            <p>Steps: {recipeId.steps}</p>
+                            <p>Steps: {recipe.preparation}</p>
                         </div>
                                 <br/>
                         <div className="form-group m-auto mb-3 banana" style={{width: 800}}>
