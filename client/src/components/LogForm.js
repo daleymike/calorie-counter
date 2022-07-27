@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 const LogForm = () => {
     const [logDate, setLogDate] = useState("");
     const [logRecipes, setLogRecipes] = useState([]);
@@ -10,6 +10,7 @@ const LogForm = () => {
     const today = new Date();
     const [allRecipes, setAllRecipes] = useState([]);
     const { userId } = useSelector(state => state.user);
+    const navigate = useNavigate();
     
     
 
@@ -64,6 +65,7 @@ const LogForm = () => {
             setLogRecipes([]);
             setLogRecipeNames([]);
             setLogCalories(0);
+            navigate('/user/logs')
         })
         .catch((err) => {console.log(err)})
         }
