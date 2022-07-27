@@ -24,7 +24,7 @@ const Detail = (props) => {
 
 
 
-    const deleteRecipe = (idFromBelow) => {
+    const deleteRecipe = (recipeId) => {
         
         axios.delete(`http://localhost:8000/api/recipes/${recipeId}`)
         .then((res)=> {
