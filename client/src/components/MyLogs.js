@@ -80,13 +80,13 @@ const MyLogs = () => {
               <tr key={index}>
                 <td>{new Date(log.logDate).toLocaleDateString()}</td>
                 <td>
-                  {log.recipesEaten.map(key => <Link to={`/api/recipes/${key}`}>{displayRecipes[key]}  |  </Link>)}
+                  {log.recipesEaten.map(key => <Link to={`/user/recipes/detail/${key}`}>{displayRecipes[key]}  |  </Link>)}
                 </td>
                 <td>{log.caloriesEaten}</td>
                 <td>
-                  <button className="btn btn-sm btn-outline-dark m-2">
+                  <Link to={`/user/logs/edit/${log._id}`} className="btn btn-sm btn-outline-dark m-2">
                     Edit
-                  </button>
+                  </Link>
                   <button className="btn btn-sm btn-outline-dark m-2" onClick={() => handleDelete(log._id)}>
                     Delete
                   </button>
